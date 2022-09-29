@@ -10,8 +10,8 @@ namespace PottencialApi.Domain.Entities
 
         // IdentificadorPedido ?
 
-        //public Vendedor Vendedor { get; set; }
-        //public ICollection<VendaDetalhe> VendaDetalhe { get; set; }
+        public Vendedor Vendedor { get; set; }
+        public ICollection<VendaDetalhe> VendaDetalhe { get; set; }
 
         /*
         De: Aguardando pagamento Para: Pagamento Aprovado
@@ -25,14 +25,28 @@ namespace PottencialApi.Domain.Entities
         De: Enviado para Transportador. Para: Entregue
         */
 
-        public void Update(VendaStatus vendaStatus)
+        private void ValidarStatusVenda(VendaStatus vendaStatusAntigo, VendaStatus vendaStatusNovo)
         {
-            ValidateDomain(vendaStatus);
+            switch (vendaStatusNovo)
+            {
+                case VendaStatus.PagamentoAprovado:
+                    break;
+                default:
+                    throw new DomainExceptionValidation("VendaStatus inválido");
+            }
         }
 
-        private void ValidateDomain(VendaStatus vendaStatus)
+        public void Update(VendaStatus vendaStatus, Vendedor vendedor)
         {
+            ValidateDomain(vendaStatus, vendedor);
+        }
+
+        private void ValidateDomain(VendaStatus vendaStatus, Vendedor vendedor)
+        {
+            DomainExceptionValidation.When(vendedor is null, "Vendedor não preenchido!");
+
             VendaStatus = vendaStatus;
+            Vendedor = vendedor;
         }
     }
 }
