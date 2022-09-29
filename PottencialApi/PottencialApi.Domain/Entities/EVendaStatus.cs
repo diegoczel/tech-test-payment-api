@@ -1,4 +1,5 @@
-﻿namespace PottencialApi.Models
+﻿
+namespace PottencialApi.Domain.Entities
 {
     public enum VendaStatus
     {
