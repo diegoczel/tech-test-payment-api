@@ -14,8 +14,4 @@
     <ProjectReference Include="..\PottencialApi.Infra.IoC\PottencialApi.Infra.IoC.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>
