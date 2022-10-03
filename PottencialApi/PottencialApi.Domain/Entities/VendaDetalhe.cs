@@ -10,7 +10,9 @@ namespace PottencialApi.Domain.Entities
         public decimal Desconto { get; private set; }
         public decimal Acrescimo { get; private set; }
 
+        public int VendaId { get; set; }
         public Venda Venda { get; set; }
+        public int ProdutoId { get; set; }
         public Produto Produto { get; set; }
 
         public VendaDetalhe(int numeroItem, decimal quantidade, decimal precoUnitario, decimal desconto, decimal acrescimo)
