@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PottencialApi.Application.Interfaces;
+using PottencialApi.Application.Mappings;
+using PottencialApi.Application.Services;
 using PottencialApi.Domain.Interfaces;
 using PottencialApi.Infra.Data.Context;
 using PottencialApi.Infra.Data.Repositories;
@@ -19,6 +22,9 @@ namespace PottencialApi.Infra.IoC
                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName))
             );
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
+
+            services.AddScoped<IProdutoService, ProdutoService>();
+            services.AddAutoMapper(typeof(DomainToDTOMapping));
 
             return services;
         }
