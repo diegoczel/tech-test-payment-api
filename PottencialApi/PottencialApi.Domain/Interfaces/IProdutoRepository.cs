@@ -1,5 +1,4 @@
-﻿
-using PottencialApi.Domain.Entities;
+﻿using PottencialApi.Domain.Entities;
 
 namespace PottencialApi.Domain.Interfaces
 {

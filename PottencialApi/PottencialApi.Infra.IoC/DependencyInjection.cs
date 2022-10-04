@@ -22,8 +22,11 @@ namespace PottencialApi.Infra.IoC
                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName))
             );
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddScoped<IVendedorRepository, VendedorRepository>();
 
             services.AddScoped<IProdutoService, ProdutoService>();
+            services.AddScoped<IVendedorService, VendedorService>();
+            
             services.AddAutoMapper(typeof(DomainToDTOMapping));
 
             return services;

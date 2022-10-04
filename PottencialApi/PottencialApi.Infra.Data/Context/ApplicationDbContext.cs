@@ -9,6 +9,7 @@ namespace PottencialApi.Infra.Data.Context
         { }
 
         public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Vendedor> Vendedores { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

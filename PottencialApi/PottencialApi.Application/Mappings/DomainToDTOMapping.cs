@@ -9,6 +9,7 @@ namespace PottencialApi.Application.Mappings
         public DomainToDTOMapping()
         {
             CreateMap<Produto, ProdutoDTO>().ReverseMap();
+            CreateMap<Vendedor, VendedorDTO>().ReverseMap();
         }
     }
 }
