@@ -10,6 +10,7 @@ namespace PottencialApi.Domain.Entities
 
         // IdentificadorPedido ?
 
+        public int VendedorId { get; set; }
         public Vendedor Vendedor { get; set; }
         public ICollection<VendaDetalhe> VendaDetalhe { get; set; }
 

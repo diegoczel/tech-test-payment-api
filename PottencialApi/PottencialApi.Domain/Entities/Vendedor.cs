@@ -10,6 +10,7 @@ namespace PottencialApi.Domain.Entities
         public string? Email { get; private set; }
         public string? Telefone { get; private set; }
 
+        public ICollection<Venda> Vendas { get; set; }
         public Vendedor(int id, string cpf, string nome, string email, string telefone)
         {
             ValidateDomain(cpf, nome, email, telefone);
