@@ -7,6 +7,6 @@ namespace PottencialApi.Application.Interfaces
         Task CreateAsync(VendedorDTO vendedor);
         Task<VendedorDTO> GetByIdAsync(int id);
         Task UpdateAsync(VendedorDTO vendedor);
-        Task RemoveAsync(VendedorDTO vendedor);
+        Task RemoveAsync(int id);
     }
 }

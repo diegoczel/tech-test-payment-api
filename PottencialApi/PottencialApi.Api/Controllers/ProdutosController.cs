@@ -46,6 +46,7 @@ namespace PottencialApi.Api.Controllers
             await _produtoService.UpdateAsync(produtoDto);
             return Ok(produtoDto);
         }
+        */
 
         [HttpDelete("{id:int}")]
         public async Task<ActionResult<ProdutoDTO>> RemoveAsync(int id)
@@ -53,13 +54,13 @@ namespace PottencialApi.Api.Controllers
             var produtoBanco = await _produtoService.GetByIdAsync(id);
             if(produtoBanco is null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            await _produtoService.RemoveAsync(produtoBanco);
+            await _produtoService.RemoveAsync(id);
 
             return Ok(produtoBanco);
         }
-        */
+        
     }
 }

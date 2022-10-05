@@ -28,9 +28,9 @@ namespace PottencialApi.Application.Services
             return _mapper.Map<ProdutoDTO>(produtoEntity);
         }
 
-        public async Task RemoveAsync(ProdutoDTO produto)
+        public async Task RemoveAsync(int id)
         {
-            var produtoEntity = _mapper.Map<Produto>(produto);
+            var produtoEntity = _produtoRepository.GetByIdAsync(id).Result;
             await _produtoRepository.RemoveAsync(produtoEntity);
         }
 

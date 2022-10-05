@@ -17,11 +17,32 @@ namespace PottencialApi.Api.Controllers
         [HttpGet("{id:int}")]
         public async Task<ActionResult<VendedorDTO>> GetByIdAsync(int id)
         {
-            var vendedor = _vendedorService.GetByIdAsync(id);
+            var vendedor = await _vendedorService.GetByIdAsync(id);
             if(vendedor is null)
             {
                 return BadRequest();
             }
+
+            return Ok(vendedor);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<VendedorDTO>> CreateAsync(VendedorDTO vendedor)
+        {
+            await _vendedorService.CreateAsync(vendedor);
+            return Created("api/vendedores/id", vendedor);
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult<VendedorDTO>> RemoveAsync(int id)
+        {
+            var vendedor = await _vendedorService.GetByIdAsync(id);
+            if(vendedor is null)
+            {
+                return NotFound();
+            }
+
+            await _vendedorService.RemoveAsync(id);
 
             return Ok(vendedor);
         }
