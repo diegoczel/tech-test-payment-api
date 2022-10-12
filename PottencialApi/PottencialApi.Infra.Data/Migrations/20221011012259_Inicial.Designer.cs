@@ -12,8 +12,8 @@ using PottencialApi.Infra.Data.Context;
 namespace PottencialApi.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221005160903_venda")]
-    partial class venda
+    [Migration("20221011012259_Inicial")]
+    partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -88,9 +88,6 @@ namespace PottencialApi.Infra.Data.Migrations
                     b.Property<decimal>("Desconto")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("NumeroItem")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("PrecoUnitario")
                         .HasColumnType("decimal(18,2)");
 
@@ -146,7 +143,7 @@ namespace PottencialApi.Infra.Data.Migrations
             modelBuilder.Entity("PottencialApi.Domain.Entities.Venda", b =>
                 {
                     b.HasOne("PottencialApi.Domain.Entities.Vendedor", "Vendedor")
-                        .WithMany("Vendas")
+                        .WithMany()
                         .HasForeignKey("VendedorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -163,7 +160,7 @@ namespace PottencialApi.Infra.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("PottencialApi.Domain.Entities.Venda", "Venda")
-                        .WithMany("VendaDetalhe")
+                        .WithMany("Itens")
                         .HasForeignKey("VendaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -175,12 +172,7 @@ namespace PottencialApi.Infra.Data.Migrations
 
             modelBuilder.Entity("PottencialApi.Domain.Entities.Venda", b =>
                 {
-                    b.Navigation("VendaDetalhe");
-                });
-
-            modelBuilder.Entity("PottencialApi.Domain.Entities.Vendedor", b =>
-                {
-                    b.Navigation("Vendas");
+                    b.Navigation("Itens");
                 });
 #pragma warning restore 612, 618
         }

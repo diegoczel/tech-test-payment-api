@@ -7,12 +7,17 @@ namespace PottencialApi.Domain.Entities
     {
         public DateTime DataCriacao { get; private set; }
         public VendaStatus VendaStatus { get; private set; }
-
-        // IdentificadorPedido ?
-
         public int VendedorId { get; set; }
         public Vendedor Vendedor { get; set; }
-        public ICollection<VendaDetalhe> VendaDetalhe { get; set; }
+        public List<VendaDetalhe> Itens { get; set; }
+
+        public Venda(DateTime dataCriacao, VendaStatus vendaStatus, int vendedorId)
+        {
+            Itens = new List<VendaDetalhe>();
+            DataCriacao = dataCriacao;
+            VendaStatus = vendaStatus;
+            VendedorId = vendedorId;
+        }
 
         /*
         De: Aguardando pagamento Para: Pagamento Aprovado

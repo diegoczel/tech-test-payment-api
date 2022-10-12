@@ -20,7 +20,7 @@ namespace PottencialApi.Api.Controllers
             var vendedor = await _vendedorService.GetByIdAsync(id);
             if(vendedor is null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
             return Ok(vendedor);

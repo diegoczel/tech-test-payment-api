@@ -21,7 +21,7 @@ namespace PottencialApi.Infra.Data.Repositories
 
         public async Task<Vendedor> GetByIdAsync(int id)
         {
-            return await _context.Vendedores.FindAsync(id) ?? throw new NullReferenceException();
+            return await _context.Vendedores.FindAsync(id);
         }
 
         public async Task<Vendedor> RemoveAsync(Vendedor vendedor)

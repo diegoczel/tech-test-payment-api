@@ -1,0 +1,34 @@
+get
+Venda
+	DataCriacao
+	VendaStatus
+	VendedorId
+	[
+		VendaDetalhe
+			NumeroItem
+			Quantidade
+			PrecoUnitario
+			Desconto
+			Acrescimo
+			VendaId
+			ProdutoId
+	]
+}
+
+post
+{
+Venda
+	//DataCriacao
+	//VendaStatus
+	VendedorId
+	[
+		VendaDetalhe
+			//NumeroItem
+			Quantidade
+			PrecoUnitario
+			Desconto
+			Acrescimo
+			//VendaId
+			ProdutoId
+	]
+}

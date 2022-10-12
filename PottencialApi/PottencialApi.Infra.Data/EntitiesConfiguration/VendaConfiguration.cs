@@ -11,7 +11,7 @@ namespace PottencialApi.Infra.Data.EntitiesConfiguration
             builder.HasKey(ven => ven.Id);
 
             builder.HasOne(venda => venda.Vendedor)
-                .WithMany(vendedor => vendedor.Vendas)
+                .WithMany()
                 .HasForeignKey(ven => ven.VendedorId);
         }
     }

@@ -11,6 +11,7 @@ namespace PottencialApi.Infra.Data.Context
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Vendedor> Vendedores { get; set; }
         public DbSet<Venda> Vendas { get; set; }
+        public DbSet<VendaDetalhe> VendaDetalhe { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -7,5 +7,6 @@ namespace PottencialApi.Application.DTOs
         public DateTime DataCriacao { get; set; }
         public int VendaStatus { get; set; }
         public int VendedorId { get; set; }
+        public List<VendaDetalheDTO> VendaDetalhe { get; set; }
     }
 }

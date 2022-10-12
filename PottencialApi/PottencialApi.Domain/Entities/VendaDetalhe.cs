@@ -4,7 +4,6 @@ namespace PottencialApi.Domain.Entities
 {
     public sealed class VendaDetalhe : Entity
     {
-        public int NumeroItem { get; private set; }
         public decimal Quantidade { get; private set; }
         public decimal PrecoUnitario { get; private set; }
         public decimal Desconto { get; private set; }
@@ -15,26 +14,26 @@ namespace PottencialApi.Domain.Entities
         public int ProdutoId { get; set; }
         public Produto Produto { get; set; }
 
-        public VendaDetalhe(int numeroItem, decimal quantidade, decimal precoUnitario, decimal desconto, decimal acrescimo)
+
+        public VendaDetalhe(decimal quantidade, decimal precoUnitario, decimal desconto, decimal acrescimo, int produtoId)
         {
-            ValidateDomain(numeroItem, quantidade, precoUnitario, desconto, acrescimo);
+            ValidateDomain(quantidade, precoUnitario, desconto, acrescimo, produtoId);
         }
 
-        public void Update(int numeroItem, decimal quantidade, decimal precoUnitario, decimal desconto, decimal acrescimo)
+        public void Update(decimal quantidade, decimal precoUnitario, decimal desconto, decimal acrescimo, int produtoId)
         {
-            ValidateDomain(numeroItem, quantidade, precoUnitario, desconto, acrescimo);
+            ValidateDomain(quantidade, precoUnitario, desconto, acrescimo, produtoId);
         }
 
-        private void ValidateDomain(int numeroItem, decimal quantidade, decimal precoUnitario, decimal desconto, decimal acrescimo)
+        private void ValidateDomain(decimal quantidade, decimal precoUnitario, decimal desconto, decimal acrescimo, int produtoId)
         {
-            DomainExceptionValidation.When(numeroItem < 1, "Numero do item iválido!");
             DomainExceptionValidation.When(quantidade <= 0, "Quantidade não pode ser menor ou igual a zero!");
 
-            NumeroItem = numeroItem;
             Quantidade = quantidade;
             PrecoUnitario = precoUnitario;
             Desconto = desconto;
             Acrescimo = acrescimo;
+            ProdutoId = produtoId;
         }
     }
 }

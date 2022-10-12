@@ -10,6 +10,10 @@ namespace PottencialApi.Application.Mappings
         {
             CreateMap<Produto, ProdutoDTO>().ReverseMap();
             CreateMap<Vendedor, VendedorDTO>().ReverseMap();
+			CreateMap<VendaDetalhe, VendaDetalheDTO>().ReverseMap();
+            CreateMap<Venda, VendaDTO>()
+                .ForMember(dest => dest.VendaDetalhe, act => act.MapFrom(src => src.Itens))
+                .ReverseMap();
         }
     }
 }

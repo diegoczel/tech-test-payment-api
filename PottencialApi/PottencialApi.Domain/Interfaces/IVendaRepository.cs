@@ -6,5 +6,6 @@ namespace PottencialApi.Domain.Interfaces
     {
         Task<Venda> CreateAsync(Venda venda);
         Task<Venda> UpdateAsync(Venda venda);
+        Task<Venda> GetById(int id);
     }
 }
