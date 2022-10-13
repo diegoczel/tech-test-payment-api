@@ -15,7 +15,18 @@ namespace PottencialApi.Api.Controllers
             _produtoService = produtoService;
         }
 
+        #region DocGetProduto
+        /// <summary>
+        /// Busca um produto pelo seu id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <response code="200">Sucesso ao buscar o produto pelo seu id.</response>
+        /// <response code="404">Id do produto não existe.</response>
+        #endregion
         [HttpGet("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ProdutoDTO>> GetByIdAsync(int id)
         {
             var produto = await _produtoService.GetByIdAsync(id);
