@@ -36,5 +36,22 @@ namespace PottencialApi.Application.Services
             var venda = _mapper.Map<Venda, VendaDTO>(vendaBanco);
             return venda;
         }
+
+        public async Task<bool> UpdateAsync(int id, VendaStatusDTO vendaStatusDTO)
+        {
+            var vendaBanco = await _vendaRepository.GetById(id);
+
+            if (vendaBanco is null)
+            {
+                return false;
+            }
+
+            vendaBanco.Update(vendaStatusDTO.VendaStatus, vendaBanco.VendedorId);
+            await _vendaRepository.UpdateAsync(vendaBanco);
+
+            return true;
+
+            
+        }
     }
 }

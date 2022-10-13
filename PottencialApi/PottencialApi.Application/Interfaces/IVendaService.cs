@@ -6,5 +6,6 @@ namespace PottencialApi.Application.Interfaces
     {
         Task CreateAsync(VendaDTO venda);
         Task<VendaDTO> GetById(int id);
+        Task<bool> UpdateAsync(int id, VendaStatusDTO vendaStatus);
     }
 }

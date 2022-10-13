@@ -33,5 +33,16 @@ namespace PottencialApi.Api.Controllers
 
             return Ok(venda);
         }
+
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult> Update(int id, VendaStatusDTO vendaStatus)
+        {
+            if(await _vendaService.UpdateAsync(id, vendaStatus))
+            {
+                return NoContent();
+            }
+
+            return BadRequest();     
+        }
     }
 }

@@ -19,40 +19,51 @@ namespace PottencialApi.Domain.Entities
             VendedorId = vendedorId;
         }
 
-        /*
-        De: Aguardando pagamento Para: Pagamento Aprovado
-
-        De: Aguardando pagamento Para: Cancelada
-
-        De: Pagamento Aprovado Para: Enviado para Transportadora
-
-        De: Pagamento Aprovado Para: Cancelada
-
-        De: Enviado para Transportador. Para: Entregue
-        */
-
-        private void ValidarStatusVenda(VendaStatus vendaStatusAntigo, VendaStatus vendaStatusNovo)
+        private static bool ValidarAtualizacaoStatusVenda(VendaStatus vendaStatusAntigo, VendaStatus vendaStatusNovo)
         {
-            switch (vendaStatusNovo)
+            var statusVendas = new Dictionary<VendaStatus, List<VendaStatus>>()
             {
-                case VendaStatus.PagamentoAprovado:
-                    break;
-                default:
-                    throw new DomainExceptionValidation("VendaStatus inválido");
+                { 
+                    VendaStatus.AguardandoPagamento, new List<VendaStatus>() 
+                    {
+                        VendaStatus.PagamentoAprovado,
+                        VendaStatus.Cancelada
+                    }
+                },
+                {
+                    VendaStatus.PagamentoAprovado, new List<VendaStatus>()
+                    {
+                        VendaStatus.EnviadoParaTransportadora,
+                        VendaStatus.Cancelada
+                    }
+                },
+                {
+                    VendaStatus.EnviadoParaTransportadora, new List<VendaStatus>()
+                    {
+                        VendaStatus.Entregue
+                    }
+                }
+            };
+            
+            if(statusVendas.ContainsKey(vendaStatusAntigo) && statusVendas[vendaStatusAntigo].Contains(vendaStatusNovo))
+            {
+                return true;
             }
+            return false;
         }
 
-        public void Update(VendaStatus vendaStatus, Vendedor vendedor)
+        public void Update(VendaStatus vendaStatus, int vendedor)
         {
             ValidateDomain(vendaStatus, vendedor);
         }
 
-        private void ValidateDomain(VendaStatus vendaStatus, Vendedor vendedor)
+        private void ValidateDomain(VendaStatus vendaStatus, int vendedor)
         {
-            DomainExceptionValidation.When(vendedor is null, "Vendedor não preenchido!");
+            DomainExceptionValidation.When(vendedor < 0, "Vendedor não preenchido!");
+            DomainExceptionValidation.When(!ValidarAtualizacaoStatusVenda(this.VendaStatus, vendaStatus), "Erro atualização status venda!");
 
             VendaStatus = vendaStatus;
-            Vendedor = vendedor;
+            VendedorId = vendedor;
         }
     }
 }
