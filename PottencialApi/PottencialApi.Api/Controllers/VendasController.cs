@@ -6,6 +6,7 @@ namespace PottencialApi.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Produces("application/json")]
     public class VendasController : Controller
     {
         private readonly IVendaService _vendaService;
@@ -14,7 +15,32 @@ namespace PottencialApi.Api.Controllers
             _vendaService = vendaService;
         }
 
+        /// <summary>
+        /// Cria uma Venda com seus Itens
+        /// </summary>
+        /// <param name="venda"></param>
+        /// <remarks>
+        /// Exemplo de request:
+        ///     
+        ///     POST /Vendas
+        ///     {
+        ///         "vendedorId": 5,
+        ///         "vendaDetalhe": [
+        ///             {
+        ///                 "quantidade": 3,
+        ///                 "precoUnitario": 2,
+        ///                 "desconto": 0,
+        ///                 "acrescimo": 0,
+        ///                 "produtoId": 6
+        ///             }
+        ///         ]
+        ///     }
+        ///     
+        /// </remarks>
+        /// <returns></returns>
+        /// <response code="201">Retorna a venda e seus itens recém criados</response>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<VendaDTO>> Create(VendaDTO venda)
         {
             await _vendaService.CreateAsync(venda);

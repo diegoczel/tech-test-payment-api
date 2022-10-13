@@ -6,6 +6,7 @@ namespace PottencialApi.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Produces("application/json")]
     public class VendedoresController : Controller
     {
         private readonly IVendedorService _vendedorService;
