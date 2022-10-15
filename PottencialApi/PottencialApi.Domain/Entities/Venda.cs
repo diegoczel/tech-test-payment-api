@@ -27,18 +27,33 @@ namespace PottencialApi.Domain.Entities
                     VendaStatus.AguardandoPagamento, new List<VendaStatus>() 
                     {
                         VendaStatus.PagamentoAprovado,
-                        VendaStatus.Cancelada
+                        VendaStatus.Cancelada,
+                        VendaStatus.AguardandoPagamento
                     }
                 },
                 {
                     VendaStatus.PagamentoAprovado, new List<VendaStatus>()
                     {
                         VendaStatus.EnviadoParaTransportadora,
-                        VendaStatus.Cancelada
+                        VendaStatus.Cancelada,
+                        VendaStatus.PagamentoAprovado
                     }
                 },
                 {
                     VendaStatus.EnviadoParaTransportadora, new List<VendaStatus>()
+                    {
+                        VendaStatus.Entregue,
+                        VendaStatus.EnviadoParaTransportadora
+                    }
+                },
+                {
+                    VendaStatus.Cancelada, new List<VendaStatus>()
+                    {
+                        VendaStatus.Cancelada
+                    }
+                },
+                {
+                    VendaStatus.Entregue, new List<VendaStatus>()
                     {
                         VendaStatus.Entregue
                     }
