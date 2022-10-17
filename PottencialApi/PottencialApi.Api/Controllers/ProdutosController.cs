@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PottencialApi.Application.Interfaces;
 using PottencialApi.Application.DTOs;
+using FluentValidation;
 
 namespace PottencialApi.Api.Controllers
 {
@@ -10,9 +11,12 @@ namespace PottencialApi.Api.Controllers
     public class ProdutosController : Controller
     {
         private readonly IProdutoService _produtoService;
-        public ProdutosController(IProdutoService produtoService)
+        private readonly IValidator<ProdutoDTO> _validator;
+
+        public ProdutosController(IProdutoService produtoService, IValidator<ProdutoDTO> validator)
         {
             _produtoService = produtoService;
+            _validator = validator;
         }
 
         #region DocGetProduto
@@ -41,6 +45,12 @@ namespace PottencialApi.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<ProdutoDTO>> CreateAsync(ProdutoDTO produto)
         {
+            var result = await _validator.ValidateAsync(produto);
+            if(!result.IsValid)
+            {
+                return BadRequest(result.Errors);
+            }
+
             await _produtoService.CreateAsync(produto);
             return Created("api/produtos/id", produto);
         }

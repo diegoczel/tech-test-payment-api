@@ -36,6 +36,7 @@ namespace PottencialApi.Infra.IoC
             services.AddAutoMapper(typeof(DomainToDTOMapping));
 
             services.AddScoped<IValidator<VendaPostDTO>, VendaPostDTOValidator>();
+            services.AddScoped<IValidator<ProdutoDTO>, ProdutoDTOValidator>();
 
             return services;
         }
