@@ -7,6 +7,9 @@ using PottencialApi.Application.Services;
 using PottencialApi.Domain.Interfaces;
 using PottencialApi.Infra.Data.Context;
 using PottencialApi.Infra.Data.Repositories;
+using FluentValidation;
+using PottencialApi.Application.DTOs;
+using PottencialApi.Application.Validators;
 
 namespace PottencialApi.Infra.IoC
 {
@@ -31,6 +34,8 @@ namespace PottencialApi.Infra.IoC
             services.AddScoped<IVendaService, VendaService>();
 
             services.AddAutoMapper(typeof(DomainToDTOMapping));
+
+            services.AddScoped<IValidator<VendaPostDTO>, VendaPostDTOValidator>();
 
             return services;
         }

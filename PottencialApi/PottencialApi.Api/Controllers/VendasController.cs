@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using PottencialApi.Application.DTOs;
 using PottencialApi.Application.Interfaces;
 
@@ -10,9 +11,12 @@ namespace PottencialApi.Api.Controllers
     public class VendasController : Controller
     {
         private readonly IVendaService _vendaService;
-        public VendasController(IVendaService vendaService)
+        private readonly IValidator<VendaPostDTO> _validator;
+
+        public VendasController(IVendaService vendaService, IValidator<VendaPostDTO> validator)
         {
             _vendaService = vendaService;
+            _validator = validator;
         }
 
         #region DocPostVenda
@@ -40,11 +44,20 @@ namespace PottencialApi.Api.Controllers
         /// </remarks>
         /// <returns></returns>
         /// <response code="201">Retorna a venda e seus itens recém criados</response>
+        /// <response code="400">Informação inválida, tal qual como: Id negativo, nenhum item, ..., etc.</response>
         #endregion
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<ActionResult<VendaDTO>> Create(VendaDTO venda)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<VendaDTO>> Create(VendaPostDTO venda)
         {
+            var result = await _validator.ValidateAsync(venda);
+
+            if(!result.IsValid)
+            {
+                return BadRequest(result.Errors);
+            }
+
             await _vendaService.CreateAsync(venda);
             return Created("api/vendas/id", venda);
         }

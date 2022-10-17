@@ -17,9 +17,9 @@ namespace PottencialApi.Application.Services
             _mapper = mapper;
         }
 
-        public async Task CreateAsync(VendaDTO venda)
+        public async Task CreateAsync(VendaPostDTO venda)
         {
-            var vendaEntity = new Venda(venda.DataCriacao, (VendaStatus)venda.VendaStatus, venda.VendedorId);
+            var vendaEntity = new Venda(DateTime.UtcNow, VendaStatus.AguardandoPagamento, venda.VendedorId);
             foreach (var item in venda.VendaDetalhe)
             {
                 var i = new VendaDetalhe(item.Quantidade, item.PrecoUnitario, item.Desconto, item.Acrescimo, item.ProdutoId);
