@@ -58,8 +58,8 @@ namespace PottencialApi.Api.Controllers
                 return BadRequest(result.Errors);
             }
 
-            await _vendaService.CreateAsync(venda);
-            return Created("api/vendas/id", venda);
+            var vendaBanco = await _vendaService.CreateAsync(venda);
+            return Created($"api/vendas/{vendaBanco.Id}", vendaBanco);
         }
 
         #region DocGetVendaById

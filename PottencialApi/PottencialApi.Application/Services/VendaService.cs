@@ -17,7 +17,7 @@ namespace PottencialApi.Application.Services
             _mapper = mapper;
         }
 
-        public async Task CreateAsync(VendaPostDTO venda)
+        public async Task<VendaDTO> CreateAsync(VendaPostDTO venda)
         {
             var vendaEntity = new Venda(DateTime.UtcNow, VendaStatus.AguardandoPagamento, venda.VendedorId);
             foreach (var item in venda.VendaDetalhe)
@@ -26,8 +26,9 @@ namespace PottencialApi.Application.Services
                 vendaEntity.Itens.Add(i);
             }
 
-            await _vendaRepository.CreateAsync(vendaEntity);
+            var vendaBanco = await _vendaRepository.CreateAsync(vendaEntity);
 
+            return _mapper.Map<Venda, VendaDTO>(vendaBanco);
         }
 
         public async Task<VendaDTO> GetById(int id)

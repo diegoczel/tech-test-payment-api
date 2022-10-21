@@ -16,10 +16,11 @@ namespace PottencialApi.Application.Services
             _vendedorRepository = vendedorRepository;
         }
 
-        public async Task CreateAsync(VendedorDTO vendedor)
+        public async Task<VendedorDTO> CreateAsync(VendedorDTO vendedor)
         {
             var vendedorEntity = _mapper.Map<Vendedor>(vendedor);
-            await _vendedorRepository.CreateAsync(vendedorEntity);
+            var vendedorBanco = await _vendedorRepository.CreateAsync(vendedorEntity);
+            return _mapper.Map<Vendedor, VendedorDTO>(vendedorBanco);
         }
 
         public async Task<VendedorDTO> GetByIdAsync(int id)

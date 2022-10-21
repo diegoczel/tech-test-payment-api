@@ -27,10 +27,12 @@ namespace PottencialApi.Api.Controllers
         /// <returns></returns>
         /// <response code="200">Sucesso ao buscar o produto pelo seu id.</response>
         /// <response code="404">Id do produto não existe.</response>
+        /// <response code="500">Erro interno do servidor!</response>
         #endregion
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<ProdutoDTO>> GetByIdAsync(int id)
         {
             var produto = await _produtoService.GetByIdAsync(id);
@@ -42,7 +44,18 @@ namespace PottencialApi.Api.Controllers
             return Ok(produto);
         }
 
+        /// <summary>
+        /// Cria um novo Produto.
+        /// </summary>
+        /// <param name="produto"></param>
+        /// <returns></returns>
+        /// <response code="201">Sucesso ao criar o Produto!</response>
+        /// <response code="400">Falha na validação dos dados do post!</response>
+        /// <response code="500">Erro interno do servidor!</response>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<ProdutoDTO>> CreateAsync(ProdutoDTO produto)
         {
             var result = await _validator.ValidateAsync(produto);
@@ -51,8 +64,8 @@ namespace PottencialApi.Api.Controllers
                 return BadRequest(result.Errors);
             }
 
-            await _produtoService.CreateAsync(produto);
-            return Created("api/produtos/id", produto);
+            var produtoBanco = await _produtoService.CreateAsync(produto);
+            return Created($"api/produtos/{produtoBanco.Id}", produtoBanco);
         }
 
         /*
@@ -70,8 +83,19 @@ namespace PottencialApi.Api.Controllers
         }
         */
 
+        /// <summary>
+        /// Remove um produto pelo seu id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <response code="204">Sucesso ao remover o Produto.</response>
+        /// <response code="404">Id do produto inválido!</response>
+        /// <response code="500">Erro interno do servidor!</response>
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult<ProdutoDTO>> RemoveAsync(int id)
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> RemoveAsync(int id)
         {
             var produtoBanco = await _produtoService.GetByIdAsync(id);
             if(produtoBanco is null)
@@ -81,7 +105,7 @@ namespace PottencialApi.Api.Controllers
 
             await _produtoService.RemoveAsync(id);
 
-            return Ok(produtoBanco);
+            return NoContent();
         }
         
     }
