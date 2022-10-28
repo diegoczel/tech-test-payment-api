@@ -68,5 +68,22 @@ namespace PottencialApi.WebUI.Controllers
             return View(produto);
         }
 
+        public async Task<ActionResult> Deletar(int id)
+        {
+            var produto = await _produtoService.GetByIdAsync(id);
+
+            if (produto is null)
+                return RedirectToAction(nameof(Index));
+
+            return View(produto);
+        }
+
+        [HttpPost, ActionName(nameof(Deletar))]
+        public async Task<ActionResult> DeletarById(int id)
+        {
+            await _produtoService.RemoveAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

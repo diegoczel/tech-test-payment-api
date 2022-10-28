@@ -1,0 +1,42 @@
+﻿@model PottencialApi.Application.DTOs.ProdutoDTO
+
+@{
+    ViewData["Title"] = "Deletar do Produto";
+}
+
+<div>
+    <h2>@ViewData["Title"]</h2>
+</div>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PrecoCusto)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PrecoCusto)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PrecoVenda)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PrecoVenda)
+        </dd>
+
+    </dl>
+
+    <form asp-action="Deletar" method="post">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Deletar" class="btn btn-danger" />
+        <a asp-action="Index">Back to list</a>
+    </form>
+</div>
