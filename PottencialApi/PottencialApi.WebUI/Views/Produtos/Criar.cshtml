@@ -1,0 +1,44 @@
+﻿@model PottencialApi.Application.DTOs.ProdutoDTO
+
+@{
+    ViewData["Title"] = "Criar novo Produto";
+}
+
+<div>
+    <h2>@ViewData["Title"]</h2>
+</div>
+<hr />
+<form asp-action="Criar" method="post">
+    <div class="form-horizontal">
+        <hr />
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="Nome" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+
+            <label asp-for="PrecoCusto" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="PrecoCusto" class="form-control" />
+                <span asp-validation-for="PrecoCusto" class="text-danger"></span>
+            </div>
+
+            <label asp-for="PrecoVenda" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="PrecoVenda" class="form-control" />
+                <span asp-validation-for="PrecoVenda" class="text-danger"></span>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Novo" class="btn btn-success" />
+                <a asp-action="Index" class="btn btn-info">Voltar para Listagem de Produtos</a>
+            </div>
+        </div>
+    </div>
+</form>

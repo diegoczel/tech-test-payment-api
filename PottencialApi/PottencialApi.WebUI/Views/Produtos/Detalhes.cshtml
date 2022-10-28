@@ -1,0 +1,39 @@
+﻿@model PottencialApi.Application.DTOs.ProdutoDTO
+
+@{
+    ViewData["Title"] = "Detalhes do Produto";
+}
+
+<div>
+    <h2>@ViewData["Title"]</h2>
+</div>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PrecoCusto)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PrecoCusto)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PrecoVenda)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PrecoVenda)
+        </dd>
+
+    </dl>
+
+    <a asp-action="Editar" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+    <a asp-action="Index">Voltar para listagem</a>
+</div>

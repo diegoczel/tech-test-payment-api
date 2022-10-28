@@ -8,5 +8,6 @@ namespace PottencialApi.Domain.Interfaces
         Task<Produto> GetByIdAsync(int id);
         Task<Produto> UpdateAsync(Produto produto);
         Task<Produto> RemoveAsync(Produto produto);
+        Task<IEnumerable<Produto>> GetProdutos();
     }
 }

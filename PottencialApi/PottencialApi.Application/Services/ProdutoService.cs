@@ -30,6 +30,12 @@ namespace PottencialApi.Application.Services
             return _mapper.Map<ProdutoDTO>(produtoEntity);
         }
 
+        public async Task<IEnumerable<ProdutoDTO>> GetProdutos()
+        {
+            var produtos = await _produtoRepository.GetProdutos();
+            return _mapper.Map<IEnumerable<ProdutoDTO>>(produtos);
+        }
+
         public async Task RemoveAsync(int id)
         {
             var produtoEntity = _produtoRepository.GetByIdAsync(id).Result;

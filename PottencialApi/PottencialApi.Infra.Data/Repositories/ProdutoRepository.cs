@@ -1,4 +1,5 @@
-﻿using PottencialApi.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using PottencialApi.Domain.Entities;
 using PottencialApi.Domain.Interfaces;
 using PottencialApi.Infra.Data.Context;
 
@@ -22,6 +23,11 @@ namespace PottencialApi.Infra.Data.Repositories
         public async Task<Produto> GetByIdAsync(int id)
         {
             return await _context.Produtos.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<Produto>> GetProdutos()
+        {
+            return await _context.Produtos.Take(10).ToListAsync();
         }
 
         public async Task<Produto> RemoveAsync(Produto produto)
