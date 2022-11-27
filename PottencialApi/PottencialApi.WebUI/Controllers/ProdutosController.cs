@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PottencialApi.Application.Interfaces;
 using PottencialApi.Application.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PottencialApi.WebUI.Controllers
 {
+    [Authorize]
     public class ProdutosController : Controller
     {
         private readonly IProdutoService _produtoService;

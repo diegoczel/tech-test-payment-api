@@ -10,6 +10,9 @@ using PottencialApi.Infra.Data.Repositories;
 using FluentValidation;
 using PottencialApi.Application.DTOs;
 using PottencialApi.Application.Validators;
+using Microsoft.AspNetCore.Identity;
+using PottencialApi.Domain.Account;
+using PottencialApi.Infra.Data.Identity;
 
 namespace PottencialApi.Infra.IoC
 {
@@ -24,6 +27,19 @@ namespace PottencialApi.Infra.IoC
                     configuration.GetConnectionString("DefaultConnection"),
                     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName))
             );
+
+            #region Identity
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(
+                options => options.AccessDeniedPath = "/Home/Login"
+            );
+
+            services.AddScoped<IAuthenticate, AuthenticateService>();
+            #endregion
+
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<IProdutoService, ProdutoService>();
 
